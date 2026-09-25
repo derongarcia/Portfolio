@@ -15,13 +15,13 @@
     />
     <style>
       :root {
-        --bg: #0c0c0b;
-        --bg-panel: #141412;
-        --line: #2a2a26;
-        --text: #eae7de;
-        --text-dim: #9c988c;
-        --brass: #b3915b;
-        --brass-dim: #7a6641;
+        --bg: #03045e;
+        --bg-panel: #082a7a;
+        --line: #1c4590;
+        --text: #eaf6ff;
+        --brass: #0084d8;
+        --brass-dim: #023eba;
+        --gold: #ffbb0d;
         font-size: 16px;
       }
       * {
@@ -30,11 +30,24 @@
         padding: 0;
       }
       html {
-        scroll-behavior: smooth;
+        scroll-behavior: auto;
         scroll-padding-top: env(safe-area-inset-top, 0px);
       }
       body {
-        background: var(--bg);
+        background:
+          radial-gradient(
+            1100px 600px at 12% -8%,
+            rgba(0, 132, 216, 0.32),
+            transparent 60%
+          ),
+          radial-gradient(
+            900px 520px at 88% 4%,
+            rgba(202, 240, 248, 0.14),
+            transparent 55%
+          ),
+          linear-gradient(180deg, #071c66 0%, #03045e 45%, #020233 100%);
+        background-attachment: fixed;
+        background-color: var(--bg);
         color: var(--text);
         font-family: "Work Sans", sans-serif;
         font-weight: 300;
@@ -50,7 +63,7 @@
         color: var(--text);
       }
       a {
-        color: var(--brass);
+        color: var(--text);
         text-decoration: none;
       }
       .wrap {
@@ -66,9 +79,23 @@
         z-index: 10;
         padding-top: calc(18px + env(safe-area-inset-top, 0px));
         padding-bottom: 18px;
-        background: rgba(12, 12, 11, 0.92);
-        backdrop-filter: blur(6px);
+        background: transparent;
+        border-bottom: 1px solid transparent;
+        transition:
+          background 0.35s ease,
+          border-color 0.35s ease,
+          box-shadow 0.35s ease,
+          backdrop-filter 0.35s ease;
+      }
+      nav.nav-scrolled {
+        background: linear-gradient(
+          120deg,
+          rgba(2, 62, 186, 0.88),
+          rgba(0, 132, 216, 0.78)
+        );
+        backdrop-filter: blur(10px);
         border-bottom: 1px solid var(--line);
+        box-shadow: 0 10px 30px rgba(4, 5, 16, 0.4);
       }
       nav .wrap {
         display: flex;
@@ -91,6 +118,7 @@
       }
       .navlinks a:hover {
         color: var(--brass);
+        color: #ffbb2d;
       }
 
       /* HERO */
@@ -140,7 +168,8 @@
         font-size: 0.92rem;
       }
       .hero-links a {
-        border-bottom: 1px solid var(--brass-dim);
+        color: var(--gold);
+        border-bottom: 1px solid var(--gold);
         padding-bottom: 2px;
       }
 
@@ -173,18 +202,49 @@
         margin-top: 16px;
       }
       .facts {
-        margin-top: 36px;
+        margin-top: 40px;
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 24px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
       }
-      .fact dt {
-        color: var(--brass);
-        font-size: 0.82rem;
-        margin-bottom: 4px;
+      .fact-card {
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 22px 24px;
+        background: linear-gradient(
+          160deg,
+          rgba(2, 62, 186, 0.35),
+          rgba(0, 132, 216, 0.16)
+        );
       }
-      .fact dd {
+      .fact-title {
+        font-family: "Fraunces", serif;
+        font-weight: 500;
         font-size: 0.95rem;
+        color: var(--brass);
+        margin-bottom: 14px;
+      }
+      .fact-list {
+        list-style: none;
+      }
+      .fact-list li {
+        position: relative;
+        padding-left: 15px;
+        font-size: 0.93rem;
+        color: var(--text-dim);
+      }
+      .fact-list li + li {
+        margin-top: 8px;
+      }
+      .fact-list li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0.55em;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: var(--brass);
       }
 
       /* PROJECTS */
@@ -229,7 +289,8 @@
         display: inline-block;
         margin-top: 12px;
         font-size: 0.88rem;
-        border-bottom: 1px solid var(--brass-dim);
+        color: var(--gold);
+        border-bottom: 1px solid var(--gold);
       }
 
       /* CERTIFICATES */
@@ -383,7 +444,7 @@
         <div class="brand">Deron Garcia</div>
         <div class="navlinks">
           <a href="#about">About Me</a>
-          <a href="#projects">Project</a>
+          <a href="#projects">Projects</a>
           <a href="#certificates">Certificates</a>
           <a href="#volunteer">Volunteer</a>
           <a href="#contact">Contact</a>
@@ -397,15 +458,10 @@
           <div class="eyebrow-role">Computer Science Student</div>
           <h1 class="name">Deron Garcia</h1>
           <p class="hero-desc">
-            Computer Science student with an interest in Machine Learning,
-            Artificial Intelligence and Natural Language Processing I enjoy
-            building technology projects and exploring practical solutions
-            through programming and data.
+            Computer Science student who enjoys turning ideas into practical
+            solutions through technology. Curious, adaptable, and always eager
+            to learn something new.
           </p>
-          <div class="hero-links">
-            <a href="#contact">Contact Me</a>
-            <a href="#projects">Projects</a>
-          </div>
         </div>
         <div class="avatar">
           <img src="images/profile.jpg" , alt="Deron Garcia" />
@@ -431,34 +487,41 @@
             opportunities to grow through practical experience.
           </p>
         </div>
-        <dl class="facts">
-          <div class="fact">
-            <dt>Education</dt>
-            <dd>SD Maria Bintang Laut</dd>
-            <dd>SMP Waringin</dd>
-            <dd>SMA Trinitas</dd>
-            <dd>Binus University</dd>
+        <div class="facts">
+          <div class="fact-card">
+            <h3 class="fact-title">Education</h3>
+            <ul class="fact-list">
+              <li>SD Maria Bintang Laut</li>
+              <li>SMP Waringin</li>
+              <li>SMA Trinitas</li>
+              <li>Binus University</li>
+            </ul>
           </div>
-          <div class="fact">
-            <dt> Skills</dt>
-            <dd>Team Work</dd>
-            <dd>Adaptation</dd>
-            <dd>Problem Solving</dd>
-            <dd>self starter</dd>
+          <div class="fact-card">
+            <h3 class="fact-title">Skills</h3>
+            <ul class="fact-list">
+              <li>Team Work</li>
+              <li>Adaptation</li>
+              <li>Problem Solving</li>
+              <li>Self Starter</li>
+            </ul>
           </div>
-          <div class="fact">
-            <dt>Programming Language</dt>
-            <dd>Python</dd>
-            <dd>HTML</dd>
-            <dd>CSS</dd>
-            <dd></dd>
+          <div class="fact-card">
+            <h3 class="fact-title">Programming Language</h3>
+            <ul class="fact-list">
+              <li>Python</li>
+              <li>HTML</li>
+              <li>CSS</li>
+            </ul>
           </div>
-            <div class="fact">
-              <dt>Focus</dt>
-              <dd>Artificial Intelligence</dd>
-              <dd>Web Development</dd>
-            </div>
-        </dl>
+          <div class="fact-card">
+            <h3 class="fact-title">Focus</h3>
+            <ul class="fact-list">
+              <li>Artificial Intelligence</li>
+              <li>Web Development</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -479,24 +542,12 @@
               I was responsible for designing and experimenting with the text
               preprocessing pipeline. I compared WordNetLemmatizer, stemming,
               and Sastrawi to evaluate how different preprocessing techniques
-              affected the classification performance.<br />I also using a
-              custom slang dictionary to handle informal Indonesian expressions
-              commonly used in SMS messages. The dictionary was integrated into
-              the preprocessing pipeline to normalize slang words before feature
-              extraction. I then evaluated the results of each preprocessing
-              approach and identified the approach that provided the best
-              performance for the classification model.
+              affected the classification performance.<br />
             </p>
             <div class="tags">
               <span>Python</span><span>NLP</span><span>TF-IDF</span
               ><span>SVM</span>
             </div>
-            <a
-              class="project-link"
-              href="https://huggingface.co/spaces/Cindyy14/smsentry_space"
-              target="_blank"
-              >Deployed Project →</a
-            ><br />
             <a
               class="project-link"
               href="https://github.com/derongarcia/Multi-Class-Classification-on-Indonesian-Spam-Messages-Using-TF-IDF-and-Support-Vector-Machine.git"
@@ -519,14 +570,6 @@
               I designed and developed the game logic using Python. I
               implemented functions using def to separate different parts of the
               program and make the code easier to manage and reuse.<br />
-              I also organized the project into multiple modules and folders
-              instead of putting the entire program in a single file. The
-              main.py file handles the main menu and program flow, while the
-              CUYPY and word guessing games are separated into their own
-              modules. The program uses imports to connect functions and modules
-              across different folders. I also implemented a main guard using if
-              name == ' main ' : to ensure the main program only runs when the
-              file is executed directly.
             </p>
             <div class="tags">
               <span>Python</span>
@@ -535,8 +578,54 @@
               class="project-link"
               href="https://github.com/derongarcia/CUYPY-games.git"
               target="_blank"
-              >Project →</a
+              >Code →</a
             >
+          </div>
+        </div>
+
+        <div class="project">
+          <div class="project-year">2026</div>
+          <div>
+            <h3>Pothole Detection and Width Estimation System</h3>
+            <p>
+              A computer vision project focused on detecting potholes from road
+              images. I was responsible for researching and evaluating suitable
+              models to determine the most appropriate approach for the
+              project.<br />
+            </p>
+            <div class="tags">
+              <span>Python</span><span>Computer Vision</span><span>YOLOv8</span
+              ><span>Deep Learning</span>
+            </div>
+            <a
+              class="project-link"
+              href="https://github.com/derongarcia/Pothole-Detection-and-Width-Estimation-System.git"
+              target="_blank"
+              >Code →</a
+            >
+          </div>
+        </div>
+
+          <div class="project">
+            <div class="project-year">2026</div>
+            <div>
+              <h3>MoodWatch - Movie Recommendation System</h3>
+              <p>
+               Developed a movie recommendation system that allows users to describe the type of movie they are looking for. The system extracts relevant keywords from the user's description using an LLM and generates movie recommendations based on those keywords. I also compared two recommendation approaches: TF-IDF with Cosine Similarity and CountVectorizer with KNN using Euclidean Distance to evaluate different methods for finding similar movies.<br />
+              </p>
+              <div class="tags">
+                <span>Python</span><span>KNN</span><span>TF-IDF</span
+                ><span>LLM</span>
+                <span>Euclidean Distance</span>
+                <span>Cosine Similarity</span>
+              </div>
+              <a
+                class="project-link"
+                href="https://github.com/derongarcia/MoodWatch----Movie-Recommendation-System.git"
+                target="_blank"
+                >Code →</a
+              >
+            </div>
           </div>
         </div>
       </div>
@@ -558,6 +647,11 @@
             alt="Certificate 1"
             class="cert-image"
           />
+          <br />
+          <p>
+            I want to expand my knowledge to become a web developer, so through
+            this course I am learning the fundamentals of databases and MySQL.
+          </p>
           <div class="cert">
             <div>
               <div class="cert-name">Azure AI Fundamentals</div>
@@ -570,7 +664,13 @@
             alt="Certificate 2"
             class="cert-image"
           />
-
+          <br />
+          <p>
+            To expand my knowledge of artificial intelligence, through this
+            course I learned how to design, build, train, and implement
+            cloud-based artificial intelligence solutions using the Microsoft
+            Azure platform.
+          </p>
           <div class="cert">
             <div>
               <div class="cert-name">Innovation Leaders Workshop</div>
@@ -583,6 +683,13 @@
             alt="Certificate 3"
             class="cert-image"
           />
+          <br />
+          <p>
+            Through this workshop, I learned to combine technical expertise with
+            leadership skills, a role that focuses not only on how to build
+            robots or write code, but also on how to use that technology to
+            create new solutions and lead a team of innovators.
+          </p>
         </div>
       </div>
     </section>
@@ -631,7 +738,7 @@
       <div class="wrap">
         <h2 class="section-title">Contact</h2>
         <p class="section-sub">
-        Please contact me through one of the following channels
+          Please contact me through one of the following channels
         </p>
         <dl class="contact-grid">
           <div class="contact-item">
@@ -662,5 +769,22 @@
     </section>
 
     <footer></footer>
+
+    <script>
+      // Menyatukan navbar dengan background saat berada di posisi paling atas,
+      // dan menampilkan panel gradasi + garis saat halaman discroll.
+      (function () {
+        var nav = document.querySelector("nav");
+        function updateNav() {
+          if (window.scrollY > 12) {
+            nav.classList.add("nav-scrolled");
+          } else {
+            nav.classList.remove("nav-scrolled");
+          }
+        }
+        updateNav();
+        window.addEventListener("scroll", updateNav, { passive: true });
+      })();
+    </script>
   </body>
 </html>
